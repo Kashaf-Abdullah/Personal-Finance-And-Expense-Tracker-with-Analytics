@@ -1,0 +1,155 @@
+Here's a stepbystep guide to test your transaction routes in Postman:
+
+ 1. First Get Authentication Token
+Before testing transactions, you need to login and get a token:
+
+Login Request:
+
+POST http://localhost:5000/api/auth/login
+Headers:
+  ContentType: application/json
+Body (raw JSON):
+{
+  "email": "user@example.com",
+  "password": "yourpassword"
+}
+
+
+Save the returned token (it will look like eyJhbG...) for all transaction requests.
+---------------------------------------------------------------------------------------------------
+ 2. Testing Transaction Endpoints
+
+ A. Create Transaction (POST)
+
+POST http://localhost:5000/api/transactions
+Headers:
+  ContentType: application/json
+  Authorization: Bearer YOUR_TOKEN_HERE
+Body (raw JSON):
+{
+  "amount": 2500,
+  "description": "Monthly groceries",
+  "category": "Food",
+  "type": "expense",
+  "paymentMethod": "card"
+}
+
+
+What to check:
+ Status code should be 201 (Created)
+ Response should include the created transaction with _id
+ Check your database to verify it was saved
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+ B. Get All Transactions (GET)
+
+GET http://localhost:5000/api/transactions
+Headers:
+  Authorization: Bearer YOUR_TOKEN_HERE
+
+
+Test with query parameters:
+
+GET http://localhost:5000/api/transactions?type=expense&limit=2
+
+
+What to check:
+ Status code 200
+ Should return array of transactions
+ Check pagination data (count, pages)
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+ C. Get Transaction Categories (GET)
+
+GET http://localhost:5000/api/transactions/categories
+Headers:
+  Authorization: Bearer YOUR_TOKEN_HERE
+
+
+What to check:
+ Should return default + user's categories
+ Array format response
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+ D. Get Single Transaction (GET)
+First note an _id from your GET all response, then:
+
+GET http://localhost:5000/api/transactions/TRANSACTION_ID_HERE
+Headers:
+  Authorization: Bearer YOUR_TOKEN_HERE
+
+
+What to check:
+ Status code 200
+ Should return exactly one transaction
+ Verify the _id matches what you requested
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+ E. Update Transaction (PUT)
+
+PUT http://localhost:5000/api/transactions/TRANSACTION_ID_HERE
+Headers:
+  ContentType: application/json
+  Authorization: Bearer YOUR_TOKEN_HERE
+Body (raw JSON):
+{
+  "amount": 3000,
+  "description": "Updated grocery amount"
+}
+
+
+What to check:
+ Status code 200
+ Response should show updated fields
+ Verify in database that changes were saved
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+ F. Delete Transaction (DELETE)
+
+DELETE http://localhost:5000/api/transactions/TRANSACTION_ID_HERE
+Headers:
+  Authorization: Bearer YOUR_TOKEN_HERE
+
+
+What to check:
+ Status code 200 with success message
+ Verify the transaction is removed from database
+ Subsequent GET request for same ID should return 404
+---------------------------------------------------------------------------------------------------
+ 3. Testing Edge Cases
+
+1. Invalid Data:
+    Try creating with negative amount
+    Missing required fields
+    Invalid category/type values
+
+2. Unauthorized Access:
+    Make requests without Authorization header
+    Use expired/malformed token
+
+3. Nonexistent Resources:
+    Try GET/PUT/DELETE with invalid transaction ID
+
+ 4. Postman Tips
+
+1. Save Requests in a collection for future testing
+2. Use Environments to store:
+    Base URL ({{base_url}})
+    Auth token ({{token}})
+3. Write Tests in Postman's Tests tab to automate validation
+
+ Example Test Script (for Create Transaction):
+
+javascript
+pm.test("Status code is 201", function() {
+    pm.response.to.have.status(201);
+});
+
+pm.test("Response has all required fields", function() {
+    const response = pm.response.json();
+    pm.expect(response).to.have.property('success', true);
+    pm.expect(response.data).to.have.all.keys('_id', 'amount', 'type', 'category', 'date');
+});
+
+
+Would you like me to provide specific test cases for any particular scenario or explain any part of the testing process in more detail?

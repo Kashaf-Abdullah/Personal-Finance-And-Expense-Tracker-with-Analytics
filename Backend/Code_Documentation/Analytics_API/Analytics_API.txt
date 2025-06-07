@@ -1,0 +1,133 @@
+
+--------------------------------------------------------------------------------------------------
+Step 1: Authentication
+First, you need to get an authentication token:
+
+Register a user (if you haven't already):
+
+POST to /api/auth/register
+
+Body (raw JSON):
+
+json
+{
+  "username": "testuser",
+  "email": "test@example.com",
+  "password": "password123"
+}
+Login to get token:
+
+POST to /api/auth/login
+
+Body (raw JSON):
+
+json
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+Save the token from the response (you'll need it for all analytics requests)
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+Step 2: Set Up Authorization in Postman
+For all analytics requests:
+
+Go to the "Authorization" tab
+
+Select "Bearer Token" as type
+
+Paste your token in the token field
+
+Analytics Endpoints to Test
+1. Financial Summary (/api/analytics/summary)
+GET Request:
+
+Endpoint: GET /api/analytics/summary
+
+Headers:
+
+Authorization: Bearer <your_token>
+
+Expected Response:
+
+json
+{
+  "success": true,
+  "data": {
+    "totalIncome": 5000,
+    "totalExpense": 3000,
+    "balance": 2000,
+    "incomeTrend": 25,
+    "expenseTrend": -10,
+    "balanceTrend": 15
+  }
+}
+2. Category-wise Analytics (/api/analytics/category)
+GET Request:
+
+Endpoint: GET /api/analytics/category
+
+Headers:
+
+Authorization: Bearer <your_token>
+
+Expected Response:
+
+json
+{
+  "success": true,
+  "data": {
+    "labels": ["Food", "Transport", "Entertainment"],
+    "values": [1200, 800, 500]
+  }
+}
+
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+3. Income vs Expense Trends (/api/analytics/trends)
+GET Request:
+
+Endpoint: GET /api/analytics/trends
+
+Headers:
+
+Authorization: Bearer <your_token>
+
+Expected Response:
+
+json
+{
+  "success": true,
+  "data": {
+    "labels": ["Jan 2023", "Feb 2023", "Mar 2023"],
+    "income": [3000, 3500, 4000],
+    "expense": [2000, 2500, 1800]
+  }
+}
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+4. Income vs Expense Comparison (/api/analytics/income-vs-expense)
+GET Request:
+
+Endpoint: GET /api/analytics/income-vs-expense
+
+Headers:
+
+Authorization: Bearer <your_token>
+
+Expected Response:
+
+json
+{
+  "success": true,
+  "data": {
+    "income": 15000,
+    "expense": 10000,
+    "savings": 5000,
+    "savingsPercentage": 33,
+    "expensePercentage": 67
+  }
+}

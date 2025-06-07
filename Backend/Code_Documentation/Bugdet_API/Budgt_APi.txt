@@ -1,0 +1,116 @@
+1. First Get Authentication Token
+Before testing budgets, you need to login and get a token:
+
+Login Request:
+
+POST http://localhost:5000/api/auth/login
+Headers:
+  Content-Type: application/json
+Body (raw JSON):
+{
+  "email": "user@example.com",
+  "password": "yourpassword"
+}
+Save the returned token for all budget requests.
+--------------------------------------------------------------------------------------------------
+
+2. Testing Budget Endpoints
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+A. Create Budget (POST)
+POST http://localhost:5000/api/budgets
+Headers:
+  Content-Type: application/json
+  Authorization: Bearer YOUR_TOKEN_HERE
+Body (raw JSON):
+{
+  "category": "Food",
+  "limit": 10000,
+  "period": "monthly"
+}
+What to check:
+
+Status code should be 201 (Created)
+
+Response should include the created budget with _id
+
+Verify it calculated currentSpent from existing transactions
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+B. Get All Budgets (GET)
+GET http://localhost:5000/api/budgets
+Headers:
+  Authorization: Bearer YOUR_TOKEN_HERE
+What to check:
+
+Status code 200
+
+Should return array of budgets
+
+Check count matches your budgets
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+C. Get Budget Status (GET)
+GET http://localhost:5000/api/budgets/status
+Headers:
+  Authorization: Bearer YOUR_TOKEN_HERE
+What to check:
+
+Status code 200
+
+Each budget should have utilization % and status
+
+Status should be "Good", "Warning" or "Exceeded"
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+D. Get Single Budget (GET)
+First note an _id from your GET all response, then:
+
+GET http://localhost:5000/api/budgets/BUDGET_ID_HERE
+Headers:
+  Authorization: Bearer YOUR_TOKEN_HERE
+What to check:
+
+Status code 200
+
+Should return exactly one budget
+
+Verify the _id matches what you requested
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+E. Update Budget (PUT)
+PUT http://localhost:5000/api/budgets/BUDGET_ID_HERE
+Headers:
+  Content-Type: application/json
+  Authorization: Bearer YOUR_TOKEN_HERE
+Body (raw JSON):
+{
+  "limit": 15000,
+  "period": "weekly"
+}
+What to check:
+
+Status code 200
+
+Response should show updated fields
+
+Verify limit/period changes were saved
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+F. Delete Budget (DELETE)
+DELETE http://localhost:5000/api/budgets/BUDGET_ID_HERE
+Headers:
+  Authorization: Bearer YOUR_TOKEN_HERE
+What to check:
+
+Status code 200 with success message
+
+Verify the budget is removed from database
+
+Subsequent GET request should return 404

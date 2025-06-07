@@ -1,0 +1,57 @@
+--------------------------------------------------------------------------------------------------
+
+. Export Transactions as CSV
+Endpoint: GET /api/export/transactions/csv
+
+Steps:
+
+Create a new GET request in Postman
+
+Set the URL to http://localhost:5000/api/export/transactions/csv
+
+Add headers:
+
+Authorization: Bearer YOUR_JWT_TOKEN
+
+Content-Type: application/json
+
+Send the request
+
+Expected Results:
+
+Status code 200 OK
+
+Response headers should include Content-Type: text/csv
+
+Response body should be CSV data with transaction details
+
+If no transactions exist, you'll get 404 with message
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+2. Export Budgets as CSV
+Endpoint: GET /api/export/budgets/csv
+
+Steps:
+
+Create a new GET request in Postman
+
+Set the URL to http://localhost:5000/api/export/budgets/csv
+
+Add headers:
+
+Authorization: Bearer YOUR_JWT_TOKEN
+
+Content-Type: application/json
+
+Send the request
+
+Expected Results:
+
+Status code 200 OK
+
+Response headers should include Content-Type: text/csv
+
+Response body should be CSV data with budget details
+
+If no budgets exist, you'll get 404 with message
