@@ -9,6 +9,7 @@ const { sendBudgetAlertEmail } = require('../utils/sendEmail');
 // @route   GET /api/budgets
 // @access  Private
 exports.getBudgets = async (req, res, next) => {
+  console.log('Budget route hit - headers:', req.headers);
   try {
     const budgets = await Budget.find({ userId: req.user._id });
     res.json({
@@ -17,6 +18,7 @@ exports.getBudgets = async (req, res, next) => {
       data: budgets
     });
   } catch (err) {
+     console.error('Budget route error:', err);
     next(err);
   }
 };
