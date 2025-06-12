@@ -27,3 +27,13 @@ export async function getIncomeVsExpense(token) {
   });
   return res.json();
 }
+
+
+
+// Get budgets
+export async function getBudgets(token) {
+  const res = await fetch(`${API}/api/budgets`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return res.json();
+}

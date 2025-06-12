@@ -21,6 +21,7 @@ export default function Login() {
     <div className="container mt-5">
       <h2>Login</h2>
       <AuthForm onSubmit={handleLogin} isRegister={false} />
+      
     </div>
   );
 }

@@ -6,8 +6,11 @@ import TransactionsPage from './pages/TransactionsPage';
 import BudgetsPage from './pages/BudgetsPage';
 import ProfilePage from './pages/ProfilePage';
 import PrivateRoute from './utils/PrivateRoute';
+  import AskGemini from './pages/AskGemini';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import NotepadPage from './pages/NotepadPage';
+import CalculatorPage from './pages/CalculatorPage';
 
 function App() {
   return (
@@ -30,6 +33,23 @@ function App() {
             <BudgetsPage />
           </PrivateRoute>
         } />
+        <Route path="/calculator" element={
+    <PrivateRoute>
+      <CalculatorPage />
+    </PrivateRoute>
+  } />
+  <Route path="/notepad" element={
+    <PrivateRoute>
+      <NotepadPage />
+    </PrivateRoute>
+  } />
+
+<Route path="/ask-gemini" element={
+  <PrivateRoute>
+    <AskGemini />
+  </PrivateRoute>
+} />
+
         <Route path="/profile" element={
           <PrivateRoute>
             <ProfilePage />

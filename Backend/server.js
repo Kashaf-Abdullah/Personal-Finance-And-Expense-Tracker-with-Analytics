@@ -7,6 +7,7 @@ const transactionRoutes = require('./routes/transactionRoutes');
 const budgetRoutes = require('./routes/budgetRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
 const exportRoutes = require('./routes/exportRoutes');
+const noteRoutes = require('./routes/noteRoutes');
 
 // const { errorHandler } = require('./middlewares/error');
 
@@ -24,6 +25,7 @@ app.use('/api/transactions', transactionRoutes);
 app.use('/api/budgets', budgetRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/export', exportRoutes);
+app.use('/api/notes', noteRoutes);
 
 // Error Handler
 
