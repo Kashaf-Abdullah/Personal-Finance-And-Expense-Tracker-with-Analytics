@@ -37,16 +37,18 @@
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { FaHome, FaExchangeAlt, FaWallet, FaUser, FaRobot, FaCalculator, FaStickyNote, FaSignOutAlt, FaBars, FaTimes } from 'react-icons/fa';
+import { FaHome, FaExchangeAlt, FaWallet, FaUser, FaRobot, FaCalculator, FaStickyNote, FaSignOutAlt, FaBars, FaTimes, FaFacebookMessenger } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 
 const navItems = [
-  { to: "/dashboard", label: "Dashboard", icon: <FaHome /> },
-  { to: "/transactions", label: "Transactions", icon: <FaExchangeAlt /> },
-  { to: "/budgets", label: "Budgets", icon: <FaWallet /> },
-  { to: "/profile", label: "Profile", icon: <FaUser /> },
-  { to: "/ask-gemini", label: "Ask Gemini", icon: <FaRobot /> },
-  { to: "/calculator", label: "Calculator", icon: <FaCalculator /> },
-  { to: "/notepad", label: "Notepad", icon: <FaStickyNote /> },
+  { to: "/dashboard", labelKey: "dashboard", icon: <FaHome /> },
+  { to: "/transactions", labelKey: "transactions", icon: <FaExchangeAlt /> },
+  { to: "/budgets", labelKey: "budgets", icon: <FaWallet /> },
+  { to: "/profile", labelKey: "profile", icon: <FaUser /> },
+  { to: "/ask-gemini", labelKey: "askGemini", icon: <FaRobot /> },
+  { to: "/calculator", labelKey: "calculator", icon: <FaCalculator /> },
+  { to: "/notepad", labelKey: "notepad", icon: <FaStickyNote /> },
+  { to: "/send", labelKey: "send", icon: <FaFacebookMessenger /> },
 ];
 
 export default function Sidebar() {
@@ -54,6 +56,7 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const [minimized, setMinimized] = useState(false); // desktop minimize
   const [mobileOpen, setMobileOpen] = useState(false); // mobile open
+const { t } = useTranslation();
 
   const isActive = (path) => location.pathname.startsWith(path);
 
@@ -135,7 +138,9 @@ export default function Sidebar() {
                 title={item.label}
               >
                 <span style={{ fontSize: 20 }}>{item.icon}</span>
-                {!minimized && <span>{item.label}</span>}
+                {/* {!minimized && <span>{item.label}</span>} */}
+                {!minimized && <span>{t(item.labelKey)}</span>}
+
               </Link>
             </li>
           ))}
@@ -151,7 +156,8 @@ export default function Sidebar() {
             title="Logout"
           >
             <FaSignOutAlt className="me-2" />
-            {!minimized && "Logout"}
+            {/* {!minimized && "Logout"} */}
+            {!minimized && t('logout')}
           </button>
         </div>
       </nav>

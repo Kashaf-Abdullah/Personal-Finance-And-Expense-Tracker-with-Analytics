@@ -31,10 +31,12 @@
 import { useEffect, useState } from 'react';
 import { getSummary } from '../api/analytics';
 import { useAuth } from '../utils/useAuth';
+import { useTranslation } from 'react-i18next';
 
 export default function SummaryWidget() {
   const { token } = useAuth();
   const [summary, setSummary] = useState(null);
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     getSummary(token).then(res => setSummary(res.data));
@@ -47,7 +49,7 @@ export default function SummaryWidget() {
       <div className="col-md-4">
         <div className="card text-white bg-success mb-3">
           <div className="card-body">
-            <h5 className="card-title">Income</h5>
+            <h5 className="card-title">{t('Income')}</h5>
             <p className="card-text">{summary.totalIncome}</p>
             <small>Trend: {summary.incomeTrend}%</small>
           </div>

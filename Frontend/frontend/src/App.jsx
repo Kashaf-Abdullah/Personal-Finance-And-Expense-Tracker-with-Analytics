@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import NotepadPage from './pages/NotepadPage';
 import CalculatorPage from './pages/CalculatorPage';
+import SendPage from './pages/SendPage';
 
 function App() {
   return (
@@ -43,7 +44,11 @@ function App() {
       <NotepadPage />
     </PrivateRoute>
   } />
-
+   <Route path="/send" element={
+          <PrivateRoute>
+            <SendPage />
+          </PrivateRoute>
+        } />
 <Route path="/ask-gemini" element={
   <PrivateRoute>
     <AskGemini />

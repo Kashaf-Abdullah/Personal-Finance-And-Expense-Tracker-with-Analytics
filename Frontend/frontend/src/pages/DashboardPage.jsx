@@ -27,12 +27,15 @@ import CategoryChart from '../components/CategoryChart';
 import TrendsChart from '../components/TrendsChart';
 import IncomeVsExpenseChart from '../components/IncomeVsExpense';
 import BudgetStatus from '../components/BudgetStatus';
+import Navbar from '../components/Navbar';
 
 export default function DashboardPage() {
   return (
+    
     <div className="d-flex">
       <Sidebar />
       <main className="container-fluid p-4">
+      <Navbar/>
         <SummaryWidget />
         <div className="row">
           <div className="col-md-6"><CategoryChart /></div>
