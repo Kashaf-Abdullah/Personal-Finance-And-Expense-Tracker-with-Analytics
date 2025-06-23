@@ -1,43 +1,10 @@
-// import { Link, useNavigate } from 'react-router-dom';
-
-// export default function Sidebar() {
-//   const navigate = useNavigate();
-//   return (
-//     <nav className="sidebar bg-dark text-white p-3">
-//       <ul className="nav flex-column">
-//         <li className="nav-item"><Link className="nav-link text-white" to="/dashboard">Dashboard</Link></li>
-//         <li className="nav-item"><Link className="nav-link text-white" to="/transactions">Transactions</Link></li>
-//         <li className="nav-item"><Link className="nav-link text-white" to="/budgets">Budgets</Link></li>
-//         <li className="nav-item"><Link className="nav-link text-white" to="/profile">Profile</Link></li>
-//        <li className="nav-item">
-//   <Link className="nav-link text-white" to="/ask-gemini">Ask Gemini</Link>
-// </li>
-
-//         <li className="nav-item">
-//   <Link className="nav-link text-white" to="/calculator">Calculator</Link>
-// </li>
-// <li className="nav-item">
-//   <Link className="nav-link text-white" to="/notepad">Notepad</Link>
-// </li>
-
-//         <li className="nav-item">
-//           <button className="btn btn-danger mt-2" onClick={() => {
-//             localStorage.removeItem('token');
-//             navigate('/login');
-//           }}>Logout</button>
-//         </li>
-//       </ul>
-//     </nav>
-//   );
-// }
-
 
 
 
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { FaHome, FaExchangeAlt, FaWallet, FaUser, FaRobot, FaCalculator, FaStickyNote, FaSignOutAlt, FaBars, FaTimes, FaFacebookMessenger } from 'react-icons/fa';
+import { FaHome, FaExchangeAlt,FaBell, FaWallet, FaUser, FaRobot, FaCalculator, FaStickyNote, FaSignOutAlt, FaBars, FaTimes, FaFacebookMessenger } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 
 const navItems = [
@@ -48,6 +15,7 @@ const navItems = [
   { to: "/ask-gemini", labelKey: "askGemini", icon: <FaRobot /> },
   { to: "/calculator", labelKey: "calculator", icon: <FaCalculator /> },
   { to: "/notepad", labelKey: "notepad", icon: <FaStickyNote /> },
+{ to: "/bill-reminders", labelKey: "Reminders", icon: <FaBell /> },
   { to: "/send", labelKey: "send", icon: <FaFacebookMessenger /> },
 ];
 

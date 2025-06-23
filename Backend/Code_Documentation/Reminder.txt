@@ -1,0 +1,5 @@
+npm install web-push node-cron
+
+genederate vapid key for cron jon
+
+npx web-push generate-vapid-keys

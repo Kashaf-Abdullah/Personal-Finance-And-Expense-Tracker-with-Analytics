@@ -12,6 +12,7 @@ import './App.css';
 import NotepadPage from './pages/NotepadPage';
 import CalculatorPage from './pages/CalculatorPage';
 import SendPage from './pages/SendPage';
+import BillReminderPage from './pages/ReminderPage'
 
 function App() {
   return (
@@ -54,6 +55,17 @@ function App() {
     <AskGemini />
   </PrivateRoute>
 } />
+
+ <Route path="/bill-reminders" 
+ element={
+    <PrivateRoute>
+
+ <BillReminderPage/>
+    </PrivateRoute>
+ 
+ } 
+
+ />
 
         <Route path="/profile" element={
           <PrivateRoute>

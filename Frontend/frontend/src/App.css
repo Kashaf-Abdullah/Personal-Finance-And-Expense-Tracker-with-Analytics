@@ -105,3 +105,165 @@ body {
     padding: 24px 10px;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.bill-reminder-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.notification {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.notification.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.notification.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.bill-form {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.submit-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+}
+
+.submit-btn:hover {
+  background-color: #0069d9;
+}
+
+.submit-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.bills-list {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.bills-list h3 {
+  margin-top: 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.no-bills {
+  color: #6c757d;
+  font-style: italic;
+}
+
+.bill-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.bill-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.bill-info h4 {
+  margin: 0 0 5px 0;
+}
+
+.bill-info p {
+  margin: 0 0 5px 0;
+  color: #6c757d;
+}
+
+.days-remaining {
+  font-weight: 500;
+}
+
+.bill-item.overdue {
+  background-color: #fff3f3;
+  border-left: 4px solid #dc3545;
+}
+
+.bill-item.due-tomorrow {
+  background-color: #fff3cd;
+  border-left: 4px solid #ffc107;
+}
+
+.bill-item.due-soon {
+  background-color: #fff8e6;
+  border-left: 4px solid #fd7e14;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+
+
