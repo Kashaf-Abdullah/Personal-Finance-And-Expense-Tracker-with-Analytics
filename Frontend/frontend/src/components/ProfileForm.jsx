@@ -26,7 +26,7 @@ export default function ProfileForm() {
     <form className="card p-4" onSubmit={handleSubmit}>
       <input className="form-control mb-2" name="username" value={form.username} onChange={e => setForm({ ...form, username: e.target.value })} required />
       <input className="form-control mb-2" name="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
-      <button className="btn btn-primary" type="submit">Update Profile</button>
+      <button className="btn" type="submit" style={{backgroundColor:'var(--color-primary)',color:'white'}}>Update Profile</button>
     </form>
   );
 }

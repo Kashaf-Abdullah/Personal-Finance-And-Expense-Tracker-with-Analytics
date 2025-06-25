@@ -1,3 +1,4 @@
+import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import { useState } from 'react';
 
@@ -19,9 +20,11 @@ export default function CalculatorPage() {
   return (
     <div className="d-flex">
       <Sidebar />
-      <main className="container p-4">
+      <main className="container-fluid">
+      <Navbar/>
+        <div className="" style={{padding:"14px"}}>
         <h2>Calculator</h2>
-        <div className="card p-3" style={{ maxWidth: 320 }}>
+        <div className="card p-3" style={{ maxWidth: 320,margin:'auto' }}>
           <input
             className="form-control mb-2"
             type="text"
@@ -52,6 +55,7 @@ export default function CalculatorPage() {
             <button className="btn btn-danger" onClick={handleClear}>C</button>
             <button className="btn btn-success" onClick={handleEquals}>=</button>
           </div>
+        </div>
         </div>
       </main>
     </div>

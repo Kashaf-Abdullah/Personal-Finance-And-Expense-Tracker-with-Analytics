@@ -2,6 +2,7 @@ import Sidebar from '../components/Sidebar';
 import { useState, useEffect } from 'react';
 import { getNotes, createNote, updateNote, deleteNote } from '../api/notes';
 import { useAuth } from '../utils/useAuth';
+import Navbar from '../components/Navbar';
 
 export default function NotepadPage() {
   const { token } = useAuth();
@@ -43,7 +44,9 @@ export default function NotepadPage() {
   return (
     <div className="d-flex">
       <Sidebar />
-      <main className="container p-4">
+      <main className="container-fluid">
+       <Navbar/>
+         <div className="" style={{padding:"14px"}}>
         <h2>Notepad</h2>
         <form className="card p-3 mb-4" onSubmit={handleSubmit}>
           <input
@@ -61,7 +64,7 @@ export default function NotepadPage() {
             onChange={e => setForm({ ...form, content: e.target.value })}
             required
           />
-          <button className="btn btn-success me-2" type="submit">
+          <button className="btn me-2"  style={{backgroundColor:'var(--color-primary)',color:'white'}} type="submit">
             {editing ? 'Update Note' : 'Add Note'}
           </button>
           {editing && (
@@ -76,11 +79,12 @@ export default function NotepadPage() {
               <div className="card-body">
                 <h5 className="card-title">{note.title}</h5>
                 <p className="card-text">{note.content}</p>
-                <button className="btn btn-sm btn-primary me-2" onClick={() => handleEdit(note)}>Edit</button>
+                <button className="btn btn-sm  me-2"  style={{backgroundColor:'var(--color-primary)',color:'white'}} onClick={() => handleEdit(note)}>Edit</button>
                 <button className="btn btn-sm btn-danger" onClick={() => handleDelete(note._id)}>Delete</button>
               </div>
             </div>
           ))}
+        </div>
         </div>
       </main>
     </div>

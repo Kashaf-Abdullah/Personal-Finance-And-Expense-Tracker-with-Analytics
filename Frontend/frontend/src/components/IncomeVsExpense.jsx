@@ -30,10 +30,13 @@ import { useEffect, useState } from 'react';
 import { getIncomeVsExpense } from '../api/analytics';
 import { useAuth } from '../utils/useAuth';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useTranslation } from 'react-i18next';
 
 export default function IncomeVsExpenseChart() {
   const { token } = useAuth();
   const [data, setData] = useState([]);
+  const { t, i18n } = useTranslation();
+  
 
   useEffect(() => {
     getIncomeVsExpense(token).then(res => {
@@ -50,15 +53,15 @@ export default function IncomeVsExpenseChart() {
   if (!data.length) return <div className="alert alert-info">Loading income vs expense...</div>;
 
   return (
-    <div className="card p-3 mb-3">
-      <h5>Income vs Expense (This Year)</h5>
+    <div className="card p-3 mb-3"> 
+      <h5>{t('IncomevsExpenseThisYear')}</h5>
       <ResponsiveContainer width="100%" height={220}>
         <BarChart data={data}>
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="value" fill="#007bff" />
+          <Bar dataKey="value" fill="#1d243c" />
         </BarChart>
       </ResponsiveContainer>
     </div>

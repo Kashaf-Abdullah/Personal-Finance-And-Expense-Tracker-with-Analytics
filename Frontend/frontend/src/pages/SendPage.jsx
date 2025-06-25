@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Sidebar from '../components/Sidebar';
+import Navbar from '../components/Navbar';
 const API = import.meta.env.VITE_API_URL;
 
 export default function SendPage() {
@@ -38,8 +39,10 @@ export default function SendPage() {
   return (
      <div className="d-flex">
           <Sidebar />
-          <main className="container p-4">
-            <h2>Calculator</h2>
+          <main className="container">
+           <Navbar/>
+             <div className="" style={{padding:"14px"}}>
+            <h2>Share Your File</h2>
 
     <div className="container d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '80vh' }}>
       <div className="card p-4" style={{ maxWidth: 400, width: '100%' }}>
@@ -76,11 +79,12 @@ export default function SendPage() {
               required
             />
           </div>
-          <button className="btn btn-success w-100" type="submit" disabled={sending}>
+          <button className="btn  w-100"  style={{backgroundColor:'var(--color-primary)',color:'white'}}  type="submit" disabled={sending}>
             {sending ? 'Sending...' : 'Send Email'}
           </button>
         </form>
       </div>
+    </div>
     </div>
     </main>
     </div>

@@ -1,22 +1,3 @@
-// import { useState } from 'react';
-
-// export default function AuthForm({ onSubmit, isRegister }) {
-//   const [form, setForm] = useState({ username: '', email: '', password: '' });
-
-//   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-
-//   return (
-//     <form className="card p-4" onSubmit={e => { e.preventDefault(); onSubmit(form); }}>
-//       {isRegister && (
-//         <input className="form-control mb-2" name="username" placeholder="Username" onChange={handleChange} required />
-//       )}
-//       <input className="form-control mb-2" name="email" placeholder="Email" onChange={handleChange} required />
-//       <input className="form-control mb-2" name="password" type="password" placeholder="Password" onChange={handleChange} required />
-//       <button className="btn btn-primary w-100" type="submit">{isRegister ? 'Register' : 'Login'}</button>
-//     </form>
-//   );
-// }
-
 
 
 import { useState } from 'react';
@@ -79,7 +60,7 @@ export default function AuthForm({ onSubmit, isRegister, toggleLink }) {
             required
           />
         </div>
-        <button className="btn btn-primary w-100 mb-2" type="submit" disabled={loading}>
+        <button  className=" logRegBtn w-100 mb-2" type="submit" disabled={loading}>
           {loading ? 'Please wait...' : (isRegister ? 'Register' : 'Login')}
         </button>
         <div className="text-center mt-2">

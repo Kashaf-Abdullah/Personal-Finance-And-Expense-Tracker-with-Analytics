@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { getBudgetStatus } from '../api/budgets';
 import { useAuth } from '../utils/useAuth';
+import { useTranslation } from 'react-i18next';
 
 export default function BudgetStatus() {
   const { token } = useAuth();
   const [budgets, setBudgets] = useState([]);
+    const { t, i18n } = useTranslation();
+  
 
   useEffect(() => {
     getBudgetStatus(token).then(res => setBudgets(res.data));
@@ -14,7 +17,7 @@ export default function BudgetStatus() {
 
   return (
     <div className="card p-3 mb-3">
-      <h5>Budgets</h5>
+      <h5>{t('budgets')}</h5>
       <ul>
         {budgets.map(b => (
           <li key={b._id}>

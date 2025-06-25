@@ -26,6 +26,11 @@ i18n
   notepad: "Notepad",
   send: "Send",
   logout: "Logout",
+  expense:'Expense',
+  balance:"Balance",
+  TopExpenseCategories:'Top Expense Categories',
+  IncomevsExpenseThisYear:'Income vs Expense (This Year)',
+  IncomevsExpenseLast6Months:'Income vs Expense(Last 6 Months)'
 
           // Add other keys as needed
         },
@@ -38,13 +43,18 @@ i18n
           // Add other keys as needed
           dashboard: "ڈیش بورڈ",
   transactions: "ٹرانزیکشنز",
-  budgets: "بجٹس",
+  budgets: "بجٹ",
   profile: "پروفائل",
   askGemini: "Ask Gemini",
   calculator: "کیلکولیٹر",
   notepad: "نوٹ پیڈ",
   send: "بھیجیں",
   logout: "لاگ آوٹ",
+  expense:'خرچ',
+  balance:'بیلنس',
+  TopExpenseCategories:'اہم خرچ کی اقسام',
+  IncomevsExpenseThisYear:'آمدنی بمقابلہ خرچ (اس سال)',
+  IncomevsExpenseLast6Months:'آمدنی بمقابلہ خرچ (گزشتہ 6 ماہ)'
         },
       },
     },

@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { getSummary, getCategoryAnalytics, getTrends, getBudgets } from '../api/analytics';
 import { useAuth } from '../utils/useAuth';
 import Sidebar from '../components/Sidebar';
+import Navbar from '../components/Navbar';
 
 export default function AskGemini() {
   const { token } = useAuth();
@@ -80,8 +81,9 @@ export default function AskGemini() {
   return (
     <div className="d-flex">
           <Sidebar />
-           <main className="container p-4">
-     
+           <main className="container-fluid">
+      <Navbar/>
+      <div className="" style={{padding:"14px"}}>
       <h2>Ask Gemini (AI Financial Assistant)</h2>
     <div className="card p-3 mb-3">
       
@@ -93,6 +95,7 @@ export default function AskGemini() {
               <strong>You:</strong>
               <button 
                 className="btn btn-sm btn-outline-secondary" 
+                 style={{backgroundColor:'var(--color-primary)',color:'white'}}
                 onClick={() => copyToClipboard(entry.question)}
               >
                 Copy
@@ -104,6 +107,7 @@ export default function AskGemini() {
               <strong>Gemini:</strong>
               <button 
                 className="btn btn-sm btn-outline-secondary" 
+                 style={{backgroundColor:'var(--color-primary)',color:'white'}}
                 onClick={() => copyToClipboard(entry.answer)}
               >
                 Copy
@@ -126,7 +130,8 @@ export default function AskGemini() {
       
       <div className="d-flex justify-content-between">
         <button 
-          className="btn btn-info" 
+          className="btn" 
+           style={{backgroundColor:'var(--color-primary)',color:'white'}}
           onClick={handleAsk} 
           disabled={loading || !question}
         >
@@ -144,6 +149,7 @@ export default function AskGemini() {
             <button 
               className="btn btn-outline-success" 
               onClick={downloadChatHistory}
+               style={{backgroundColor:'var(--color-primary)',color:'white'}}
             >
               Download Chat
             </button>
@@ -158,6 +164,7 @@ export default function AskGemini() {
             <strong>Gemini:</strong>
             <button 
               className="btn btn-sm btn-outline-secondary" 
+               style={{backgroundColor:'var(--color-primary)',color:'white'}}
               onClick={() => copyToClipboard(aiAnswer)}
             >
               Copy
@@ -166,6 +173,7 @@ export default function AskGemini() {
           <div>{aiAnswer}</div>
         </div>
       )}
+    </div>
     </div>
     </main>
     </div>

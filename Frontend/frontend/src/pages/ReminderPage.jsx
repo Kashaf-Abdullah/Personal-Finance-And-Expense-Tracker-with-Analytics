@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
+import Navbar from '../components/Navbar';
 const VAPID_PUBLIC_KEY = import.meta.env.VITE_VAPID_PUBLIC_KEY;
 const API = import.meta.env.VITE_API_URL;
 function urlBase64ToUint8Array(base64String) {
@@ -159,8 +160,8 @@ const ReminderPage = () => {
     },
     button: {
       padding: '10px 24px',
-      backgroundColor: '#3b82f6',
-      color: 'white',
+   backgroundColor:'var(--color-primary)',
+     color:'white',
       fontWeight: '600',
       border: 'none',
       borderRadius: '6px',
@@ -200,8 +201,10 @@ const ReminderPage = () => {
   return (
      <div className="d-flex">
           <Sidebar />
-          <main className="container-fluid p-4">
-    <div >
+          <main className="container-fluid">
+    <div>
+     <Navbar/>
+       <div className="" style={{padding:"14px"}}>
       <h2 style={styles.heading}>My Reminders</h2>
       <form onSubmit={addReminder} style={styles.form}>
         <input
@@ -219,7 +222,7 @@ const ReminderPage = () => {
           style={styles.input}
           required
         />
-        <button type="submit" style={styles.button}>
+        <button type="submit"   style={styles.button}>
           Add Reminder
         </button>
       </form>
@@ -238,6 +241,7 @@ const ReminderPage = () => {
           </li>
         ))}
       </ul>
+    </div>
     </div>
         </main>
     </div>

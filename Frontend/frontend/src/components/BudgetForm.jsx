@@ -34,8 +34,8 @@ export default function BudgetForm({ editing, setEditing }) {
         </select>
       </div>
       <div className="col-auto">
-        <button className="btn btn-success" type="submit">{editing ? 'Update' : 'Add'} Budget</button>
-        {editing && <button className="btn btn-secondary ms-2" type="button" onClick={() => setEditing(null)}>Cancel</button>}
+        <button className="btn " style={{backgroundColor:'var(--color-primary)',color:'white'}} type="submit">{editing ? 'Update' : 'Add'} Budget</button>
+        {editing && <button className="btn  ms-2"  style={{backgroundColor:'var(--color-primary)',color:'white'}} type="button" onClick={() => setEditing(null)}>Cancel</button>}
       </div>
     </form>
   );

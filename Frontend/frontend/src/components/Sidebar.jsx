@@ -6,7 +6,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { FaHome, FaExchangeAlt,FaBell, FaWallet, FaUser, FaRobot, FaCalculator, FaStickyNote, FaSignOutAlt, FaBars, FaTimes, FaFacebookMessenger } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
-
+import logo from '../assets/logo2.gif'
 const navItems = [
   { to: "/dashboard", labelKey: "dashboard", icon: <FaHome /> },
   { to: "/transactions", labelKey: "transactions", icon: <FaExchangeAlt /> },
@@ -32,7 +32,7 @@ const { t } = useTranslation();
   const sidebarWidth = minimized ? 60 : 220;
 
   // Sidebar classes
-  const sidebarClass = `sidebar bg-dark text-white p-3 ${mobileOpen ? 'open' : ''} ${minimized ? 'minimized' : ''}`;
+  const sidebarClass = `sidebar text-white p-3 ${mobileOpen ? 'open' : ''} ${minimized ? 'minimized' : ''}`;
 
   return (
     <>
@@ -52,6 +52,7 @@ const { t } = useTranslation();
         style={{
           width: sidebarWidth,
           minWidth: sidebarWidth,
+          backgroundColor:'var(--color-primary)',
           transition: 'width 0.3s',
           position: 'fixed',
           height: '100vh',
@@ -61,9 +62,24 @@ const { t } = useTranslation();
         }}
       >
         {/* Mobile Close Button */}
-        <div className="d-flex align-items-center justify-content-between mb-4" style={{ height: 50 }}>
+        <div className="d-flex align-items-center justify-content-between " style={{ height: 50 ,marginBottom:'10px'}}>
           {/* Logo only if not minimized and not mobile */}
-          {!minimized && <img src="/logo192.png" alt="Logo" style={{ width: 40, height: 40, borderRadius: 8 }} />}
+          {!minimized &&
+        <img
+  src={logo}
+  alt="Logo"
+  style={{
+    width: 114,
+    height: 98,
+    borderRadius: 14,
+    objectFit: 'contain',
+    position:'relative',
+    top:'7px',
+    left:'7px',
+    imageRendering: 'high-quality'  // Better rendering for animations
+  }}
+  loading="lazy"  // Optional: for performance
+/>}
           {/* Desktop Minimize Button */}
           <button
             className="btn btn-sm btn-outline-light ms-auto d-none d-md-inline"
@@ -116,7 +132,8 @@ const { t } = useTranslation();
         {/* Logout at bottom */}
         <div className="sidebar-logout mt-auto text-center" style={{ position: 'absolute', bottom: 20, width: minimized ? 40 : '80%' }}>
           <button
-            className="btn btn-danger w-100 d-flex align-items-center justify-content-center"
+          style={{backgroundColor:'var(--color-background)',color:'var(--color-primary)'}}
+            className="btn  w-100 d-flex align-items-center justify-content-center"
             onClick={() => {
               localStorage.removeItem('token');
               navigate('/login');
@@ -147,7 +164,7 @@ const { t } = useTranslation();
         />
       )}
       {/* Spacer div to push content right */}
-      <div style={{ width: sidebarWidth, minWidth: sidebarWidth }} className="d-none d-md-block" />
+      <div style={{ width: sidebarWidth, minWidth: '208px' }} className="d-none d-md-block" />
     </>
   );
 }
