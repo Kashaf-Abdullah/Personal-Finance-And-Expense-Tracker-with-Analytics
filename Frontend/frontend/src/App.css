@@ -49,6 +49,7 @@ body {
 .sidebar.minimized .btn span:not(:first-child) {
   display: none !important;
 }
+
 @media (max-width: 767px) {
   .sidebar {
     transform: translateX(-100%);

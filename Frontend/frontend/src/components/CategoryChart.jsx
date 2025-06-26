@@ -54,7 +54,7 @@ export default function CategoryChart() {
   return (
     <div className="card p-3 mb-3">
       <h5>{t('TopExpenseCategories')}</h5>
-      <PieChart width={330} height={250}>
+      <PieChart width={350} height={280} style={{margin:"auto"}}>
         <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} fill="#8884d8" label>
           {data.map((entry, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
         </Pie>

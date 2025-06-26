@@ -62,7 +62,7 @@ const { t } = useTranslation();
         }}
       >
         {/* Mobile Close Button */}
-        <div className="d-flex align-items-center justify-content-between " style={{ height: 50 ,marginBottom:'10px'}}>
+        <div className="d-flex align-items-center justify-content-between " style={{ height: 50 ,marginBottom:'20px'}}>
           {/* Logo only if not minimized and not mobile */}
           {!minimized &&
         <img
