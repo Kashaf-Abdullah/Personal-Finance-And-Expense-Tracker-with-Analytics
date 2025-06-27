@@ -40,12 +40,22 @@ export default function NotepadPage() {
     setEditing(null);
     setForm({ title: '', content: '' });
   };
+    const [minimized, setMinimized] = useState(false);
+
 
   return (
     <div className="d-flex">
-      <Sidebar />
-      <main className="container-fluid">
-       <Navbar/>
+     <Sidebar minimized={minimized} setMinimized={setMinimized}  />
+           {/* <main className="container-fluid "> */}
+              <main
+             className="container-fluid"
+             style={{
+               marginLeft: minimized ? 0 : 18, // Match your sidebar width
+               transition: 'margin-left 0.3s'
+             }}
+           >
+           <Navbar minimized={minimized}/>
+           
          <div className="" style={{padding:"14px"}}>
         <h2>Notepad</h2>
         <form className="card p-3 mb-4" onSubmit={handleSubmit}>

@@ -1,3 +1,7 @@
+*{
+  margin: 0;
+  padding: 0;
+}
 
 :root {
   /* Primary Colors */
@@ -15,8 +19,17 @@
 }
 body {
   background: #f8f9fa;
+    margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-y: auto;   /* Enable vertical scroll only if needed */
+  height: 100%;
+
 }
 
+main{
+  overflow-x: hidden;
+}
 
 
 .sidebar {
@@ -29,6 +42,7 @@ body {
   transition: width 0.3s;
   height: 100vh;
   z-index: 1052;
+  
 }
 .sidebar .nav-link.active {
   background: var(--color-primary) !important;
@@ -62,9 +76,14 @@ body {
   }
   .sidebar-toggle {
     position: fixed !important;
-    top: 10px !important;
-    left: 10px !important;
+    top: 0px !important;
+    left:0px !important;
     z-index: 2000 !important;
+    padding: 15px;
+  }
+  .navbar{
+position: relative;
+left: 15px;
   }
 }
 

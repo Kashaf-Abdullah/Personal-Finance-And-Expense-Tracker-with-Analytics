@@ -1,7 +1,4 @@
 
-
-
-
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { FaHome, FaExchangeAlt,FaBell, FaWallet, FaUser, FaRobot, FaCalculator, FaStickyNote, FaSignOutAlt, FaBars, FaTimes, FaFacebookMessenger } from 'react-icons/fa';
@@ -19,10 +16,10 @@ const navItems = [
   { to: "/send", labelKey: "send", icon: <FaFacebookMessenger /> },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ minimized, setMinimized }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const [minimized, setMinimized] = useState(false); // desktop minimize
+  // const [minimized, setMinimized] = useState(false); // desktop minimize
   const [mobileOpen, setMobileOpen] = useState(false); // mobile open
 const { t } = useTranslation();
 
@@ -37,14 +34,25 @@ const { t } = useTranslation();
   return (
     <>
       {/* Hamburger for mobile (always at top left) */}
-      <button
+      {/* <button
         className="sidebar-toggle btn btn-dark d-md-none"
         onClick={() => setMobileOpen(true)}
         style={{ position: 'fixed', top: 10, left: 10, zIndex: 1051 }}
         aria-label="Open sidebar"
       >
         <FaBars />
-      </button>
+      </button> */}
+{/* Hamburger for mobile (always at top left) */}
+{!mobileOpen ? (
+  <button
+    className="sidebar-toggle btn btn-dark d-md-none"
+    onClick={() => setMobileOpen(true)}
+    style={{ position: 'fixed', top: 10, left: 10, zIndex: 1051 }}
+    aria-label="Open sidebar"
+  >
+    <FaBars />
+  </button>
+) : null}
 
       {/* Sidebar */}
       <nav
@@ -158,13 +166,13 @@ const { t } = useTranslation();
             left: 0,
             width: '100vw',
             height: '100vh',
-            background: 'rgba(0,0,0,0.3)',
+            // background: 'rgba(0,0,0,0.3)',
             zIndex: 1050,
           }}
         />
       )}
       {/* Spacer div to push content right */}
-      <div style={{ width: sidebarWidth, minWidth: '208px' }} className="d-none d-md-block" />
+      <div style={{ width: sidebarWidth, minWidth: '57px' }} className="d-none d-md-block" />
     </>
   );
-}
+} 

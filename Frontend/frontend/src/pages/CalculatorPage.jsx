@@ -5,6 +5,7 @@ import { useState } from 'react';
 export default function CalculatorPage() {
   const [input, setInput] = useState('');
   const [result, setResult] = useState('');
+const [minimized, setMinimized] = useState(false);
 
   const handleClick = (value) => setInput(input + value);
   const handleClear = () => { setInput(''); setResult(''); };
@@ -19,9 +20,17 @@ export default function CalculatorPage() {
 
   return (
     <div className="d-flex">
-      <Sidebar />
-      <main className="container-fluid">
-      <Navbar/>
+     <Sidebar minimized={minimized} setMinimized={setMinimized}  />
+           {/* <main className="container-fluid "> */}
+              <main
+             className="container-fluid"
+             style={{
+               marginLeft: minimized ? 0 : 18, // Match your sidebar width
+               transition: 'margin-left 0.3s'
+             }}
+           >
+           <Navbar minimized={minimized}/>
+           
         <div className="" style={{padding:"14px"}}>
         <h2>Calculator</h2>
         <div className="card p-3" style={{ maxWidth: 320,margin:'auto' }}>

@@ -197,13 +197,21 @@ const ReminderPage = () => {
       cursor: 'pointer',
     },
   };
+    const [minimized, setMinimized] = useState(false);
 
   return (
      <div className="d-flex">
-          <Sidebar />
-          <main className="container-fluid">
-    <div>
-     <Navbar/>
+         <Sidebar minimized={minimized} setMinimized={setMinimized}  />
+              {/* <main className="container-fluid "> */}
+                 <main
+                className="container-fluid"
+                style={{
+                  marginLeft: minimized ? 0 : 18, // Match your sidebar width
+                  transition: 'margin-left 0.3s'
+                }}
+              >
+              <div>
+              <Navbar minimized={minimized}/>
        <div className="" style={{padding:"14px"}}>
       <h2 style={styles.heading}>My Reminders</h2>
       <form onSubmit={addReminder} style={styles.form}>

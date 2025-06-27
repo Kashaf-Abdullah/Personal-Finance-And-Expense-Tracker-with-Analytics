@@ -77,12 +77,20 @@ export default function AskGemini() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
+const [minimized, setMinimized] = useState(false);
 
   return (
     <div className="d-flex">
-          <Sidebar />
-           <main className="container-fluid">
-      <Navbar/>
+          <Sidebar minimized={minimized} setMinimized={setMinimized}  />
+              {/* <main className="container-fluid "> */}
+                 <main
+                className="container-fluid"
+                style={{
+                  marginLeft: minimized ? 0 : 18, // Match your sidebar width
+                  transition: 'margin-left 0.3s'
+                }}
+              >
+              <Navbar minimized={minimized}/>
       <div className="" style={{padding:"14px"}}>
       <h2>Ask Gemini (AI Financial Assistant)</h2>
     <div className="card p-3 mb-3">
