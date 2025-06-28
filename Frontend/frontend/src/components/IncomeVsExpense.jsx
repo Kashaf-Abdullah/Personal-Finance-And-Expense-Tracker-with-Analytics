@@ -1,29 +1,3 @@
-// import { useEffect, useState } from 'react';
-// import { getIncomeVsExpense } from '../api/analytics';
-// import { useAuth } from '../utils/useAuth';
-
-// export default function IncomeVsExpense() {
-//   const { token } = useAuth();
-//   const [data, setData] = useState(null);
-
-//   useEffect(() => {
-//     getIncomeVsExpense(token).then(res => setData(res.data));
-//   }, [token]);
-
-//   if (!data) return <div className="alert alert-info">Loading income vs expense...</div>;
-
-//   return (
-//     <div className="card p-3 mb-3">
-//       <h5>Income vs Expense (This Year)</h5>
-//       <ul>
-//         <li>Income: {data.income}</li>
-//         <li>Expense: {data.expense}</li>
-//         <li>Savings: {data.savings} ({data.savingsPercentage}%)</li>
-//         <li>Expense Percentage: {data.expensePercentage}%</li>
-//       </ul>
-//     </div>
-//   );
-// }
 
 
 import { useEffect, useState } from 'react';

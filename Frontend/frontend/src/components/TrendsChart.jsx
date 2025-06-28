@@ -1,31 +1,3 @@
-// import { useEffect, useState } from 'react';
-// import { getTrends } from '../api/analytics';
-// import { useAuth } from '../utils/useAuth';
-
-// export default function TrendsChart() {
-//   const { token } = useAuth();
-//   const [data, setData] = useState(null);
-
-//   useEffect(() => {
-//     getTrends(token).then(res => setData(res.data));
-//   }, [token]);
-
-//   if (!data) return <div className="alert alert-info">Loading trends...</div>;
-
-//   return (
-//     <div className="card p-3 mb-3">
-//       <h5>Trends (Last 6 Months)</h5>
-//       <ul>
-//         {data.labels.map((month, i) => (
-//           <li key={month}>
-//             {month}: Income {data.income[i]}, Expense {data.expense[i]}
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }
-
 
 import { useEffect, useState } from 'react';
 import { getTrends } from '../api/analytics';
