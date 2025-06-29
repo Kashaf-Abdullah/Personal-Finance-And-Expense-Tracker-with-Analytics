@@ -31,6 +31,12 @@ export default function AskGemini() {
       Top categories: ${JSON.stringify(categories.data)}
       Trends: ${JSON.stringify(trends.data)}
       Give a helpful, personalized answer.
+      INSTRUCTIONS:
+  - Always show money in Pakistani Rupees (Rs. XXX) format.
+  - Do NOT convert currencies, just use "Rs." before amounts.
+  - Example: "You spent Rs. 5000 on groceries."
+  - Keep answers concise and helpful.
+  and give answer in bullet points and clean
     `;
     
     // 3. Call Gemini API
