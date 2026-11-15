@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
-const API = import.meta.env.VITE_API_URL;
+import { API } from '../api/config';
 
 export default function SendPage() {
   const [email, setEmail] = useState('');

@@ -1,4 +1,4 @@
-const API = import.meta.env.VITE_API_URL;
+import { API } from './config';
 
 export async function login(email, password) {
   const res = await fetch(`${API}/api/auth/login`, {
