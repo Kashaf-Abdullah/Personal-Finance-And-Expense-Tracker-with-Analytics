@@ -144,6 +144,23 @@ background-color: var(--color-primary);
 .auth-toggle-link:hover {
   color: color(--color-primary-light);
 }
+.demo-accounts {
+  border-top: 1px solid #dee2e6;
+  padding-top: 16px;
+}
+.demo-accounts-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+.demo-account {
+  padding: 10px 0;
+  border-bottom: 1px solid #dee2e6;
+  overflow-wrap: anywhere;
+}
+.demo-account:last-child {
+  border-bottom: 0;
+}
 @media (max-width: 480px) {
   .auth-card {
     padding: 24px 10px;

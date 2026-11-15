@@ -5,6 +5,11 @@ import AuthForm from '../components/AuthForm';
 import { login } from '../api/auth';
 import { useAuth } from '../utils/useAuth';
 
+const demoAccounts = [
+  { label: 'Demo user', email: 'demo.user@finance-tracker.test', password: 'UserDemo123!' },
+  { label: 'Demo admin', email: 'demo.admin@finance-tracker.test', password: 'AdminDemo123!' }
+];
+
 export default function Login() {
   const navigate = useNavigate();
   const { saveToken } = useAuth();
@@ -23,6 +28,7 @@ export default function Login() {
     <AuthForm
       onSubmit={handleLogin}
       isRegister={false}
+      demoAccounts={demoAccounts}
       toggleLink={
         <span>
           Don't have an account?{' '}

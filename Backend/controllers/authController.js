@@ -29,6 +29,7 @@ await sendWelcomeEmail(user)
       _id: user._id,
       username: user.username,
       email: user.email,
+      role: user.role,
       token 
     });
   } catch (err) {
@@ -50,6 +51,7 @@ exports.login = async (req, res, next) => {
       _id: user._id,
       username: user.username,
       email: user.email,
+      role: user.role,
       token 
     });
   } catch (err) {
@@ -70,9 +72,10 @@ exports.getProfile = async (req, res, next) => {
 
 exports.updateProfile = async (req, res, next) => {
   try {
+    const { username, email, currency, pushSubscription, preferredCategories, themePreference } = req.body;
     const user = await User.findByIdAndUpdate(
       req.user._id,
-      req.body,
+      { username, email, currency, pushSubscription, preferredCategories, themePreference },
       { new: true, runValidators: true }
     ).select('-password');
     

@@ -4,6 +4,8 @@ import { useAuth } from '../utils/useAuth';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+
 export default function AskGemini() {
   const { token } = useAuth();
   const [question, setQuestion] = useState('');
@@ -13,6 +15,11 @@ export default function AskGemini() {
   const chatRef = useRef(null);
 
   const handleAsk = async () => {
+    if (!GEMINI_API_KEY) {
+      setAiAnswer('Set VITE_GEMINI_API_KEY in the frontend .env file to use AI answers.');
+      return;
+    }
+
     setLoading(true);
     
     // 1. Fetch all analytics data
@@ -40,7 +47,7 @@ export default function AskGemini() {
     `;
     
     // 3. Call Gemini API
- const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyBA6jra0HVAybXWkhZM-j-iSo6QfKNcyWs', {
+ const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
