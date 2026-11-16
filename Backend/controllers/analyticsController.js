@@ -11,19 +11,21 @@ const getObjectId = (id) => new mongoose.Types.ObjectId(id);
 // @access  Private
 const getSummary = async (req, res) => {
   try {
-    const currentMonthStart = moment().startOf('month').utc().toDate();
-    const currentMonthEnd = moment().endOf('month').utc().toDate();
-    const lastMonthStart = moment().subtract(1, 'month').startOf('month').utc().toDate();
-    const lastMonthEnd = moment().subtract(1, 'month').endOf('month').utc().toDate();
+    const timezone = req.user.timezone || 'UTC';
+    const currentMonth = moment().tz(timezone).startOf('month');
+    const currentMonthStart = currentMonth.toDate();
+    const currentMonthEnd = currentMonth.clone().add(1, 'month').toDate();
+    const lastMonthStart = currentMonth.clone().subtract(1, 'month').toDate();
+    const lastMonthEnd = currentMonthStart;
     const userId = new mongoose.Types.ObjectId(req.user._id);
 
     const [currentMonthData, lastMonthData] = await Promise.all([
       Transaction.aggregate([
-        { $match: { userId, date: { $gte: currentMonthStart, $lte: currentMonthEnd } } },
+        { $match: { userId, date: { $gte: currentMonthStart, $lt: currentMonthEnd } } },
         { $group: { _id: '$type', total: { $sum: '$amount' } } }
       ]),
       Transaction.aggregate([
-        { $match: { userId, date: { $gte: lastMonthStart, $lte: lastMonthEnd } } },
+        { $match: { userId, date: { $gte: lastMonthStart, $lt: lastMonthEnd } } },
         { $group: { _id: '$type', total: { $sum: '$amount' } } }
       ])
     ]);
@@ -130,8 +132,8 @@ const getTrends = async (req, res, next) => {
       { 
         $group: { 
           _id: {
-            month: { $month: '$date' },
-            year: { $year: '$date' },
+            month: { $month: { date: '$date', timezone } },
+            year: { $year: { date: '$date', timezone } },
             type: '$type'
           },
           total: { $sum: '$amount' } 

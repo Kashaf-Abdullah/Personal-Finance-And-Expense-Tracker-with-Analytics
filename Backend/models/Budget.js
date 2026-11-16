@@ -16,6 +16,11 @@ const budgetSchema = new mongoose.Schema({
     required: true,
     min: 1
   },
+  period: {
+    type: String,
+    enum: ['weekly', 'monthly', 'yearly'],
+    default: 'monthly'
+  },
   currentSpent: {
     type: Number,
     default: 0,
@@ -40,23 +45,6 @@ budgetSchema.index(
   { userId: 1, category: 1, month: 1, year: 1 },
   { unique: true }
 );
-
-// Method to update spent amount
-budgetSchema.statics.updateSpent = async function(userId, category, amount) {
-  const currentMonth = new Date().getMonth() + 1;
-  const currentYear = new Date().getFullYear();
-  
-  await this.findOneAndUpdate(
-    { 
-      userId, 
-      category, 
-      month: currentMonth, 
-      year: currentYear 
-    },
-    { $inc: { currentSpent: amount } },
-    { upsert: true, new: true }
-  );
-};
 
 const Budget = mongoose.model('Budget', budgetSchema);
 

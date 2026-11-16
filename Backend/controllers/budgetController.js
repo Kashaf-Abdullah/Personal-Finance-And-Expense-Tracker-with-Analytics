@@ -1,5 +1,5 @@
 const Budget = require('../models/Budget');
-const Transaction = require('../models/Transaction');
+const { getBudgetSpending, refreshBudgetSpending } = require('../utils/budgetCalculations');
 // const { sendEmail } = require('../utils/sendEmail');
 // const Email = require('../utils/sendEmail');
 const { sendBudgetAlertEmail } = require('../utils/sendEmail');
@@ -11,7 +11,10 @@ const { sendBudgetAlertEmail } = require('../utils/sendEmail');
 exports.getBudgets = async (req, res, next) => {
   console.log('Budget route hit - headers:', req.headers);
   try {
-    const budgets = await Budget.find({ userId: req.user._id });
+    const budgets = await refreshBudgetSpending(
+      await Budget.find({ userId: req.user._id }),
+      req.user.timezone || 'UTC'
+    );
     res.json({
       success: true,
       count: budgets.length,
@@ -28,7 +31,10 @@ exports.getBudgets = async (req, res, next) => {
 // @access  Private
 exports.getBudgetStatus = async (req, res, next) => {
   try {
-    const budgets = await Budget.find({ userId: req.user._id });
+    const budgets = await refreshBudgetSpending(
+      await Budget.find({ userId: req.user._id }),
+      req.user.timezone || 'UTC'
+    );
     
     // Calculate utilization percentage and check alerts
     const budgetsWithStatus = budgets.map(budget => {
@@ -91,29 +97,19 @@ exports.createBudget = async (req, res, next) => {
     }
 
     // Calculate current spent from existing transactions
-    const expenses = await Transaction.aggregate([
-      {
-        $match: {
-          userId: req.user._id,
-          category,
-          type: 'expense'
-        }
-      },
-      {
-        $group: {
-          _id: null,
-          total: { $sum: '$amount' }
-        }
-      }
-    ]);
-
-    const currentSpent = expenses.length > 0 ? expenses[0].total : 0;
+    const budgetPeriod = period || 'monthly';
+    const currentSpent = await getBudgetSpending(
+      req.user._id,
+      category,
+      budgetPeriod,
+      req.user.timezone || 'UTC'
+    );
 
     const budget = await Budget.create({
       userId: req.user._id,
       category,
       limit,
-      period: period || 'monthly',
+      period: budgetPeriod,
       currentSpent
     });
 
@@ -131,7 +127,7 @@ exports.createBudget = async (req, res, next) => {
 // @access  Private
 exports.getBudget = async (req, res, next) => {
   try {
-    const budget = await Budget.findOne({
+    let budget = await Budget.findOne({
       _id: req.params.id,
       userId: req.user._id
     });
@@ -142,6 +138,8 @@ exports.getBudget = async (req, res, next) => {
         error: 'Budget not found'
       });
     }
+
+    [budget] = await refreshBudgetSpending([budget], req.user.timezone || 'UTC');
 
     res.json({
       success: true,
@@ -173,6 +171,7 @@ exports.updateBudget = async (req, res, next) => {
       new: true,
       runValidators: true
     });
+    [budget] = await refreshBudgetSpending([budget], req.user.timezone || 'UTC');
 
     res.json({
       success: true,

@@ -2,17 +2,74 @@ import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import { useState } from 'react';
 
+const evaluateExpression = (expression) => {
+  const tokens = expression.match(/(?:\d+\.?\d*|\.\d+)|[+\-*/]/g);
+  if (!tokens || tokens.join('') !== expression) throw new Error('Invalid expression');
+
+  const values = [];
+  const operators = [];
+  const precedence = { '+': 1, '-': 1, '*': 2, '/': 2, 'u+': 3, 'u-': 3 };
+  let expectsValue = true;
+
+  const applyOperator = () => {
+    const operator = operators.pop();
+    if (operator === 'u+' || operator === 'u-') {
+      if (!values.length) throw new Error('Invalid expression');
+      values.push(operator === 'u-' ? -values.pop() : values.pop());
+      return;
+    }
+
+    if (values.length < 2) throw new Error('Invalid expression');
+    const right = values.pop();
+    const left = values.pop();
+    const result = operator === '+' ? left + right
+      : operator === '-' ? left - right
+        : operator === '*' ? left * right
+          : left / right;
+    if (!Number.isFinite(result)) throw new Error('Invalid result');
+    values.push(result);
+  };
+
+  tokens.forEach(token => {
+    if (/^(?:\d+\.?\d*|\.\d+)$/.test(token)) {
+      if (!expectsValue) throw new Error('Invalid expression');
+      values.push(Number(token));
+      expectsValue = false;
+      return;
+    }
+
+    let operator = token;
+    if (expectsValue) {
+      if (token !== '+' && token !== '-') throw new Error('Invalid expression');
+      operator = `u${token}`;
+    }
+
+    while (
+      operators.length &&
+      precedence[operators[operators.length - 1]] > precedence[operator]
+    ) {
+      applyOperator();
+    }
+    operators.push(operator);
+    expectsValue = true;
+  });
+
+  if (expectsValue) throw new Error('Invalid expression');
+  while (operators.length) applyOperator();
+  if (values.length !== 1 || !Number.isFinite(values[0])) throw new Error('Invalid result');
+  return values[0];
+};
+
 export default function CalculatorPage() {
   const [input, setInput] = useState('');
   const [result, setResult] = useState('');
-const [minimized, setMinimized] = useState(false);
+  const [minimized, setMinimized] = useState(false);
 
   const handleClick = (value) => setInput(input + value);
   const handleClear = () => { setInput(''); setResult(''); };
   const handleEquals = () => {
     try {
-      // eslint-disable-next-line no-eval
-      setResult(eval(input).toString());
+      setResult(evaluateExpression(input).toString());
     } catch {
       setResult('Error');
     }

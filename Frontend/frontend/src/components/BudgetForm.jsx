@@ -29,6 +29,7 @@ export default function BudgetForm({ editing, setEditing }) {
       </div>
       <div className="col">
         <select className="form-select" name="period" value={form.period} onChange={e => setForm({ ...form, period: e.target.value })}>
+          <option value="weekly">Weekly</option>
           <option value="monthly">Monthly</option>
           <option value="yearly">Yearly</option>
         </select>

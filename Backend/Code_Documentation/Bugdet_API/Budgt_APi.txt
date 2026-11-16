@@ -35,7 +35,8 @@ Status code should be 201 (Created)
 
 Response should include the created budget with _id
 
-Verify it calculated currentSpent from existing transactions
+Verify currentSpent includes only expenses in the selected budget period (weekly,
+monthly, or yearly). Weekly budgets run Monday through Sunday.
 --------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------
 

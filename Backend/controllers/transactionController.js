@@ -1,5 +1,6 @@
 const Transaction = require('../models/Transaction');
 const Budget = require('../models/Budget');
+const { refreshBudgetSpending } = require('../utils/budgetCalculations');
 // const { sendEmail } = require('../utils/sendEmail');
 
 // @desc    Get all transactions
@@ -75,14 +76,8 @@ exports.createTransaction = async (req, res, next) => {
       paymentMethod
     });
 
-    // Update budget if expense
-    if (type === 'expense') {
-      await Budget.findOneAndUpdate(
-        { userId: req.user._id, category },
-        { $inc: { currentSpent: amount } },
-        { new: true }
-      );
-    }
+    const budgets = await Budget.find({ userId: req.user._id, category });
+    await refreshBudgetSpending(budgets, req.user.timezone || 'UTC');
 
     res.status(201).json({
       success: true,
@@ -136,9 +131,6 @@ exports.updateTransaction = async (req, res, next) => {
       });
     }
 
-    // Store original amount for budget adjustment
-    const originalAmount = transaction.amount;
-    const originalType = transaction.type;
     const originalCategory = transaction.category;
 
     // Update transaction
@@ -147,25 +139,12 @@ exports.updateTransaction = async (req, res, next) => {
       runValidators: true
     });
 
-    // Update budgets if amount or category changed
-    if (req.body.amount || req.body.category || req.body.type) {
-      // If it was expense before, subtract original amount
-      if (originalType === 'expense') {
-        await Budget.findOneAndUpdate(
-          { userId: req.user._id, category: originalCategory },
-          { $inc: { currentSpent: -originalAmount } }
-        );
-      }
-
-      // If it's expense now, add new amount
-      if (transaction.type === 'expense') {
-        await Budget.findOneAndUpdate(
-          { userId: req.user._id, category: transaction.category },
-          { $inc: { currentSpent: transaction.amount } },
-          { upsert: true }
-        );
-      }
-    }
+    const affectedCategories = [...new Set([originalCategory, transaction.category])];
+    const budgets = await Budget.find({
+      userId: req.user._id,
+      category: { $in: affectedCategories }
+    });
+    await refreshBudgetSpending(budgets, req.user.timezone || 'UTC');
 
     res.json({
       success: true,
@@ -193,15 +172,12 @@ exports.deleteTransaction = async (req, res, next) => {
       });
     }
 
-    // If expense, subtract from budget
-    if (transaction.type === 'expense') {
-      await Budget.findOneAndUpdate(
-        { userId: req.user._id, category: transaction.category },
-        { $inc: { currentSpent: -transaction.amount } }
-      );
-    }
-
-    await transaction.remove();
+    await transaction.deleteOne();
+    const budgets = await Budget.find({
+      userId: req.user._id,
+      category: transaction.category
+    });
+    await refreshBudgetSpending(budgets, req.user.timezone || 'UTC');
 
     res.json({
       success: true,
